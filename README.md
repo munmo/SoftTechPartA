@@ -6,7 +6,7 @@
 * Sonya Jung  
   
 #### Submission Requirements
-This assignment must be submitted online via L@G under the assessment page. Only 1 submission per group is needed. Your submission should include:
+This assignment must be submitted online via L@G under the assessment page. The submission includes:
 - Project Plan.docx - A project plan document. You should use the provided template.
 - Software Design Document.docx - A software design document. You should use the provided template.
 - Gantt chart.xlsx - A separate Gantt chart (high-resolution version). You should embed this in your project plan (as an image or other), but also provide the original file.
