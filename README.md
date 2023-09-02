@@ -1,9 +1,9 @@
 # 2810ICT/7810ICT 2023 Assignment 
 ## Part A - Project Management
 ## Group 8
-Sarah Mitchell 
-Lina Kim   
-Sonya Jung  
+* Sarah Mitchell
+* Lina Kim 
+* Sonya Jung  
   
 #### Submission Requirements
 This assignment must be submitted online via L@G under the assessment page. Only 1 submission per group is needed. Your submission should include:
