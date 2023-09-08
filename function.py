@@ -23,4 +23,9 @@ def OnSearch(self, event):
     self.m_grid2.AutoSize()
     self.Layout()
 
+if __name__ == "__main__":
+
+    app = wx.App(False)
+    ##frame = CalcFrame()
+    app.MainLoop()
 
