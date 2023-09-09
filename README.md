@@ -31,3 +31,5 @@ https://www.kaggle.com/tylerx/sydney-airbnb-open-data
 - For a user-selected period, retrieve all records that contain a keyword (user entered), e.g. pool, pet.
 - Analysing how many customers commented on factors related to cleanliness (multiple key words may be associated with cleanliness – justify your selection). 
 - For user-selected price range (min & max), report all properties with user-selected price range (min & max)
+
+## Part B - Statistical Data Analysis and Presentation
