@@ -65,6 +65,7 @@ class SoftwareFrame(Software2):
         self.m_grid4.SetTable(tabel, True)
         self.m_grid4.AutoSize()
         self.Layout()
+
 # I dont know whats wrong with this part :(
 if __name__ == "__main__":
 
