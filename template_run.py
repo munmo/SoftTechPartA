@@ -8,10 +8,9 @@ from template import Software as Software2
 EVEN_ROW_COLOUR = '#F7DAD9'
 GRID_LINE_COLOUR = '#ccc'
 
-df1 = pd.read_csv(r"C:\Users\tpwls\OneDrive\Desktop\Griffith\2810ICT\listings_dec18.csv")
-df2 = pd.read_csv(r"C:\Users\tpwls\OneDrive\Desktop\Griffith\2810ICT\reviews_dec18.csv")
-#df3 is about the price stuff they don't have price section in file1 & file2)
-df3 = pd.read_csv(r"C:\Users\tpwls\OneDrive\Desktop\Griffith\2810ICT\listings_summary_dec18.csv")
+df1 = pd.read_csv("listings_dec18.csv", low_memory=False)
+df2 = pd.read_csv("reviews_dec18.csv", low_memory=False)
+df3 = pd.read_csv("listings_summary_dec18.csv", low_memory=False)
 
 
 class DataTable(wx.grid.GridTableBase):
@@ -46,11 +45,10 @@ class DataTable(wx.grid.GridTableBase):
 class SoftwareFrame(Software2):
     def __init__(self,parent=None):
         super().__init__(parent)
-        self.table = SoftwareFrame(df3)
 
+        self.table = DataTable(df3)
         self.m_grid4.SetTable(self.table, takeOwnership=True)
         self.m_grid4.AutoSize()
-
         self.Show(True)
         self.Layout()
     def OnSearch(self, event):
