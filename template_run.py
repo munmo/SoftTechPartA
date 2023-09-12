@@ -3,14 +3,12 @@ import wx.grid
 import pandas as pd
 
 from SuburbTem import Suburb
-<<<<<<< HEAD
 from PriceDistTem import Price
 from KeywordTem import Keyword
 from CleanlinessTem import Cleanliness
 from PriceRangeTem import PriceRange
 
-=======
->>>>>>> 4737a567f1de483fceca8355b34bf18b4913778b
+
 # changed the even row colour to baby pink (thought it would match with our background colour(which is lightblue)
 EVEN_ROW_COLOUR = '#F7DAD9'
 GRID_LINE_COLOUR = '#ccc'
@@ -111,7 +109,6 @@ class Main ( wx.Frame ):
         secondWindow.Show()
 
     def OnPriceDist( self, event ):
-<<<<<<< HEAD
         secondWindow = Price(self)
         secondWindow.Show()
 
@@ -126,18 +123,19 @@ class Main ( wx.Frame ):
     def OnPriceRange( self, event ):
         secondWindow = PriceRange(self)
         secondWindow.Show()
-=======
-        event.Skip()
+
 
     def OnKeyword( self, event ):
-        event.Skip()
+        secondWindow = Keyword(self)
+        secondWindow.Show()
 
     def OnCleanliness( self, event ):
-        event.Skip()
+        secondWindow = Cleanliness(self)
+        secondWindow.Show()
 
     def OnPriceRange( self, event ):
-        event.Skip()
-
+        secondWindow = PriceRange(self)
+        secondWindow.Show()
 
 
 if __name__ == "__main__":
