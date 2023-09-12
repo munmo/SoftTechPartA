@@ -3,10 +3,9 @@ import wx.grid
 import pandas as pd
 
 from SuburbTem import Suburb
-from PriceDistTem import Price
+from PriceDistribution_Run import Price #Linked
 from KeywordTem import Keyword
 from CleanlinessTem import Cleanliness
-from PriceRangeTem import PriceRange
 
 # changed the even row colour to baby pink (thought it would match with our background colour(which is lightblue)
 EVEN_ROW_COLOUR = '#F7DAD9'
@@ -15,7 +14,6 @@ GRID_LINE_COLOUR = '#ccc'
 df1 = pd.read_csv("listings_dec18.csv", low_memory=False)
 df2 = pd.read_csv("reviews_dec18.csv", low_memory=False)
 df3 = pd.read_csv("calendar_dec18.csv", low_memory=False)
-
 
 # buttons for navigation
 class Main(wx.Frame):
@@ -168,7 +166,6 @@ class Data(wx.grid.GridTableBase):
             attr.SetBackgroundColour(EVEN_ROW_COLOUR)
         return attr
 
-
 class DataFrame(Main):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -179,10 +176,8 @@ class DataFrame(Main):
         self.Show(True)
         self.Layout()
 
-
-
-
 if __name__ == "__main__":
     app = wx.App(False)
-    frame = Main()
+    frame = Main(None)  # Pass None as the parent
+    frame.Show()  # This line is necessary to show the frame
     app.MainLoop()
