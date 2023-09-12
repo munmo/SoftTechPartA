@@ -14,7 +14,6 @@ GRID_LINE_COLOUR = '#ccc'
 
 df1 = pd.read_csv("listings_dec18.csv", low_memory=False)
 df2 = pd.read_csv("reviews_dec18.csv", low_memory=False)
-df3 = pd.read_csv("listings_summary_dec18.csv", low_memory=False)
 
 
 # buttons for navigation
