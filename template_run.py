@@ -1,94 +1,61 @@
-# -*- coding: utf-8 -*-
-
-###########################################################################
-## Python code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
-## http://www.wxformbuilder.org/
-##
-## PLEASE DO *NOT* EDIT THIS FILE!
-###########################################################################
-
 import wx
-import wx.xrc
+import wx.grid
+import pandas as pd
 
-###########################################################################
-## Class Main
-###########################################################################
+from MainTem import Main as Main1
 
-class Main ( wx.Frame ):
+#changed the even row colour to baby pink (thought it would match with our background colour(which is lightblue)
+EVEN_ROW_COLOUR = '#F7DAD9'
+GRID_LINE_COLOUR = '#ccc'
 
-	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Airbnb Data Software", pos = wx.DefaultPosition, size = wx.Size( 874,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
-
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_INACTIVEBORDER ) )
-
-		bSizer1 = wx.BoxSizer( wx.VERTICAL )
-
-		self.m_panel1 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		gSizer1 = wx.GridSizer( 1, 5, 0, 0 )
-
-		self.m_button1 = wx.Button( self.m_panel1, wx.ID_ANY, u"Suburb Listing", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_button1.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
-
-		gSizer1.Add( self.m_button1, 0, wx.ALL, 5 )
-
-		self.m_button2 = wx.Button( self.m_panel1, wx.ID_ANY, u"Price Distribution", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_button2.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
-
-		gSizer1.Add( self.m_button2, 0, wx.ALL, 5 )
-
-		self.m_button3 = wx.Button( self.m_panel1, wx.ID_ANY, u"Search Keyword", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_button3.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
-
-		gSizer1.Add( self.m_button3, 0, wx.ALL, 5 )
-
-		self.m_button4 = wx.Button( self.m_panel1, wx.ID_ANY, u"Cleanliness", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_button4.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
-
-		gSizer1.Add( self.m_button4, 0, wx.ALL, 5 )
-
-		self.m_button5 = wx.Button( self.m_panel1, wx.ID_ANY, u"Price Range", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_button5.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
-
-		gSizer1.Add( self.m_button5, 0, wx.ALL, 5 )
+df1 = pd.read_csv("listings_dec18.csv", low_memory=False)
+df2 = pd.read_csv("reviews_dec18.csv", low_memory=False)
+df3 = pd.read_csv("listings_summary_dec18.csv", low_memory=False)
 
 
-		self.m_panel1.SetSizer( gSizer1 )
-		self.m_panel1.Layout()
-		gSizer1.Fit( self.m_panel1 )
-		bSizer1.Add( self.m_panel1, 1, wx.EXPAND |wx.ALL, 5 )
+class DataTable(wx.grid.GridTableBase):
+    def __init__(self, data=None):
+        wx.grid.GridTableBase.__init__(self)
+        self.headerRows = 1
+        self.data = data
+
+    def GetNumberRows(self):
+        return len(self.data.index)
+
+    def GetNumberCols(self):
+        return len(self.data.columns)
+
+    def GetValue(self, row, col):
+        return self.data.iloc[row, col]
+
+    def SetValue(self, row, col, value):
+        self.data.iloc[row, col] = value
+
+    # For better visualisation
+    def GetColLabelValue(self, col):
+        return self.data.columns[col]
+
+    def GetAttr(self, row, col, prop):
+        attr = wx.grid.GridCellAttr()
+        if row % 2 == 1:
+            attr.SetBackgroundColour(EVEN_ROW_COLOUR)
+        return attr
 
 
-		self.SetSizer( bSizer1 )
-		self.Layout()
+class SoftwareFrame(Main1):
+    def __init__(self,parent=None):
+        super().__init__(parent)
 
-		self.Centre( wx.BOTH )
-
-		# Connect Events
-		self.m_button1.Bind( wx.EVT_BUTTON, self.OnSuburb )
-		self.m_button2.Bind( wx.EVT_BUTTON, self.OnPriceDist )
-		self.m_button3.Bind( wx.EVT_BUTTON, self.OnKeyword )
-		self.m_button4.Bind( wx.EVT_BUTTON, self.OnCleanliness )
-		self.m_button5.Bind( wx.EVT_BUTTON, self.OnPriceRange )
-
-	def __del__( self ):
-		pass
+        self.table = DataTable(df3)
+        self.m_grid2.SetTable(self.table, takeOwnership=True)
+        self.m_grid2.AutoSize()
+        self.Show(True)
+        self.Layout()
 
 
-	# Virtual event handlers, override them in your derived class
-	def OnSuburb( self, event ):
-		event.Skip()
+# I dont know whats wrong with this part :(
+if __name__ == "__main__":
 
-	def OnPriceDist( self, event ):
-		event.Skip()
-
-	def OnKeyword( self, event ):
-		event.Skip()
-
-	def OnCleanliness( self, event ):
-		event.Skip()
-
-	def OnPriceRange( self, event ):
-		event.Skip()
-
-
+    app = wx.App(False)
+    frame = SoftwareFrame()
+    app.MainLoop()
