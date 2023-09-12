@@ -2,9 +2,7 @@ import wx
 import wx.grid
 import pandas as pd
 
-from MainTem import Main as Main1
-from SuburbTem import Suburb as Suburb1
-
+from SuburbTem import Suburb
 # changed the even row colour to baby pink (thought it would match with our background colour(which is lightblue)
 EVEN_ROW_COLOUR = '#F7DAD9'
 GRID_LINE_COLOUR = '#ccc'
@@ -15,29 +13,111 @@ df3 = pd.read_csv("listings_summary_dec18.csv", low_memory=False)
 
 
 # buttons for navigation
-class MainFrame(Main1):
-    def __init__(self, parent=None, title=u"Airbnb Data Software", size=wx.Size(874, 300)):
-        wx.Frame.__init__(self, parent=parent, title=title, size=size)
+class Main ( wx.Frame ):
 
-        panel = wx.Panel(self)
-        button_suburb = wx.Button(panel, label="Open Suburb Window")
-        button_suburb.Bind(wx.EVT_BUTTON, self.open_suburb_window)
+    def __init__( self, parent ):
+        wx.Frame.__init__ ( self, parent=parent, id = wx.ID_ANY, title = u"Airbnb Data Software", pos = wx.DefaultPosition, size = wx.Size( 874,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
-        # Add more widgets and layout for your main window here
+        self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+        self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_INACTIVEBORDER ) )
 
-    def open_suburb_window(self, event):
+        bSizer1 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_panel1 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        gSizer1 = wx.GridSizer( 1, 5, 0, 0 )
+
+        self.m_button1 = wx.Button( self.m_panel1, wx.ID_ANY, u"Suburb Listing", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_button1.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
+
+        gSizer1.Add( self.m_button1, 0, wx.ALL, 5 )
+
+        self.m_button2 = wx.Button( self.m_panel1, wx.ID_ANY, u"Price Distribution", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_button2.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
+
+        gSizer1.Add( self.m_button2, 0, wx.ALL, 5 )
+
+        self.m_button3 = wx.Button( self.m_panel1, wx.ID_ANY, u"Search Keyword", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_button3.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
+
+        gSizer1.Add( self.m_button3, 0, wx.ALL, 5 )
+
+        self.m_button4 = wx.Button( self.m_panel1, wx.ID_ANY, u"Cleanliness", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_button4.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
+
+        gSizer1.Add( self.m_button4, 0, wx.ALL, 5 )
+
+        self.m_button5 = wx.Button( self.m_panel1, wx.ID_ANY, u"Price Range", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_button5.SetBackgroundColour( wx.Colour( 255, 174, 174 ) )
+
+        gSizer1.Add( self.m_button5, 0, wx.ALL, 5 )
+
+
+        self.m_panel1.SetSizer( gSizer1 )
+        self.m_panel1.Layout()
+        gSizer1.Fit( self.m_panel1 )
+        bSizer1.Add( self.m_panel1, 1, wx.EXPAND |wx.ALL, 5 )
+
+        self.m_grid2 = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+
+        # Grid
+        self.m_grid2.CreateGrid( 5, 5 )
+        self.m_grid2.EnableEditing( True )
+        self.m_grid2.EnableGridLines( True )
+        self.m_grid2.EnableDragGridSize( False )
+        self.m_grid2.SetMargins( 0, 0 )
+
+        # Columns
+        self.m_grid2.EnableDragColMove( False )
+        self.m_grid2.EnableDragColSize( True )
+        self.m_grid2.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+        # Rows
+        self.m_grid2.EnableDragRowSize( True )
+        self.m_grid2.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+        # Label Appearance
+
+        # Cell Defaults
+        self.m_grid2.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+        bSizer1.Add( self.m_grid2, 0, wx.ALL, 5 )
+
+
+        self.SetSizer( bSizer1 )
+        self.Layout()
+
+        self.Centre( wx.BOTH )
+
+        # Connect Events
+        self.m_button1.Bind( wx.EVT_BUTTON, self.OnSuburb )
+        self.m_button2.Bind( wx.EVT_BUTTON, self.OnPriceDist )
+        self.m_button3.Bind( wx.EVT_BUTTON, self.OnKeyword )
+        self.m_button4.Bind( wx.EVT_BUTTON, self.OnCleanliness )
+        self.m_button5.Bind( wx.EVT_BUTTON, self.OnPriceRange )
+
+    def __del__( self ):
+        pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def OnSuburb( self, event):
         secondWindow = Suburb(self)
         secondWindow.Show()
 
+    def OnPriceDist( self, event ):
+        event.Skip()
 
-class Suburb(Suburb1):
-    def __init__(self, parent):
-        wx.Frame.__init__(self, parent=parent, id=wx.ID_ANY, title=u"Suburb Window", size=wx.Size(874, 300))
-        self.Centre()
-        # Add widgets and layout for your suburb window here
+    def OnKeyword( self, event ):
+        event.Skip()
+
+    def OnCleanliness( self, event ):
+        event.Skip()
+
+    def OnPriceRange( self, event ):
+        event.Skip()
 
 
 if __name__ == "__main__":
     app = wx.App(False)
-    frame = MainFrame()
+    frame = Main(None)
+    frame.Show()
     app.MainLoop()
