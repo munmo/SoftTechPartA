@@ -3,8 +3,9 @@ import wx.grid
 import pandas as pd
 
 from MainTem import Main as Main1
+from SuburbTem import Suburb as Suburb1
 
-#changed the even row colour to baby pink (thought it would match with our background colour(which is lightblue)
+# changed the even row colour to baby pink (thought it would match with our background colour(which is lightblue)
 EVEN_ROW_COLOUR = '#F7DAD9'
 GRID_LINE_COLOUR = '#ccc'
 
@@ -13,49 +14,30 @@ df2 = pd.read_csv("reviews_dec18.csv", low_memory=False)
 df3 = pd.read_csv("listings_summary_dec18.csv", low_memory=False)
 
 
-class DataTable(wx.grid.GridTableBase):
-    def __init__(self, data=None):
-        wx.grid.GridTableBase.__init__(self)
-        self.headerRows = 1
-        self.data = data
+# buttons for navigation
+class MainFrame(Main1):
+    def __init__(self, parent=None, title=u"Airbnb Data Software", size=wx.Size(874, 300)):
+        wx.Frame.__init__(self, parent=parent, title=title, size=size)
 
-    def GetNumberRows(self):
-        return len(self.data.index)
+        panel = wx.Panel(self)
+        button_suburb = wx.Button(panel, label="Open Suburb Window")
+        button_suburb.Bind(wx.EVT_BUTTON, self.open_suburb_window)
 
-    def GetNumberCols(self):
-        return len(self.data.columns)
+        # Add more widgets and layout for your main window here
 
-    def GetValue(self, row, col):
-        return self.data.iloc[row, col]
-
-    def SetValue(self, row, col, value):
-        self.data.iloc[row, col] = value
-
-    # For better visualisation
-    def GetColLabelValue(self, col):
-        return self.data.columns[col]
-
-    def GetAttr(self, row, col, prop):
-        attr = wx.grid.GridCellAttr()
-        if row % 2 == 1:
-            attr.SetBackgroundColour(EVEN_ROW_COLOUR)
-        return attr
+    def open_suburb_window(self, event):
+        secondWindow = Suburb(self)
+        secondWindow.Show()
 
 
-class SoftwareFrame(Main1):
-    def __init__(self,parent=None):
-        super().__init__(parent)
-
-        self.table = DataTable(df3)
-        self.m_grid2.SetTable(self.table, takeOwnership=True)
-        self.m_grid2.AutoSize()
-        self.Show(True)
-        self.Layout()
+class Suburb(Suburb1):
+    def __init__(self, parent):
+        wx.Frame.__init__(self, parent=parent, id=wx.ID_ANY, title=u"Suburb Window", size=wx.Size(874, 300))
+        self.Centre()
+        # Add widgets and layout for your suburb window here
 
 
-# I dont know whats wrong with this part :(
 if __name__ == "__main__":
-
     app = wx.App(False)
-    frame = SoftwareFrame()
+    frame = MainFrame()
     app.MainLoop()
