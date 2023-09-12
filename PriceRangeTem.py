@@ -12,10 +12,10 @@ import wx.xrc
 import wx.grid
 
 ###########################################################################
-## Class Price Range
+## Class PriceRange
 ###########################################################################
 
-class Price Range ( wx.Frame ):
+class PriceRange ( wx.Frame ):
 
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Airbnb Data Software", pos = wx.DefaultPosition, size = wx.Size( 874,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
