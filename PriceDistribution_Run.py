@@ -19,7 +19,7 @@ class Price(wx.Frame):
         gSizer3 = wx.GridSizer(1, 5, 0, 0)
 
         # Read the unique dates from the CSV file
-        df_calendar = pd.read_csv("calendar_18.csv")
+        df_calendar = pd.read_csv("calendar_dec18.csv")
         unique_dates = df_calendar['date'].unique().tolist()
         unique_dates.sort()
 
@@ -82,7 +82,7 @@ class Price(wx.Frame):
             wx.MessageBox("Please select both Check-In and Check-Out dates.", "Error", wx.OK | wx.ICON_ERROR)
             return
 
-        df_calendar = pd.read_csv("calendar_18.csv")
+        df_calendar = pd.read_csv("calendar_dec18.csv")
         df_calendar['date'] = pd.to_datetime(df_calendar['date'])
         df_calendar['price'] = df_calendar['price'].replace('[\$,]', '', regex=True).astype(float)
 
