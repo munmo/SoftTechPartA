@@ -65,24 +65,42 @@ class Price(wx.Frame):
             wx.MessageBox("Please select both Check-In and Check-Out dates.", "Error", wx.OK | wx.ICON_ERROR)
             return
 
+        # Convert to datetime type
+        checkin_date = pd.Timestamp(checkin_date)
+        checkout_date = pd.Timestamp(checkout_date)
+
+        # Read the data
         df_calendar = pd.read_csv("calendar_dec18.csv")
         df_calendar['date'] = pd.to_datetime(df_calendar['date'])
         df_calendar['price'] = df_calendar['price'].replace('[\$,]', '', regex=True).astype(float)
 
-        mask = (df_calendar['date'] >= checkin_date) & (df_calendar['date'] <= checkout_date)
-        df_filtered = df_calendar.loc[mask]
+        # Filter the DataFrame based on the selected date range
+        df_filtered = df_calendar[(df_calendar['date'] >= checkin_date) & (df_calendar['date'] <= checkout_date)]
 
         if df_filtered.empty:
             wx.MessageBox("No data available for the selected date range.", "Info", wx.OK | wx.ICON_INFORMATION)
             return
 
+        # Further filter to only include prices up to $1000
+        df_filtered = df_filtered[df_filtered['price'] <= 1000]
+
+        if df_filtered.empty:
+            wx.MessageBox("No data available for the selected date range under $1000.", "Info",
+                          wx.OK | wx.ICON_INFORMATION)
+            return
+
+        # Create the plot
         plt.figure(figsize=(10, 6))
-        plt.hist(df_filtered['price'].dropna(), bins=30, color='blue', edgecolor='black')
-        plt.title("Price Distribution")
+        plt.hist(df_filtered['price'], bins=range(0, 1001, 100), color='pink', edgecolor='black')
+        plt.title(
+            f"Airbnb Sydney Price Distribution: {checkin_date.strftime('%Y-%m-%d')} to {checkout_date.strftime('%Y-%m-%d')}")
         plt.xlabel("Price")
-        plt.ylabel("Frequency")
+        plt.xticks([x for x in range(0, 1001, 100)], [f"${x}" for x in range(0, 1001, 100)])  # Add $ to x-axis labels
+        plt.ylabel("Number of properties")
         plt.grid(True)
+        plt.ticklabel_format(style='plain', axis='y', useOffset=False)  # Disable scientific notation for y-axis
         plt.show()
+
 
 # Run the program
 app = wx.App(False)
