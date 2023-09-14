@@ -6,6 +6,8 @@ from SuburbTem import Suburb
 from PriceDistribution_Run import Price #Linked
 from KeywordTem import Keyword
 from CleanlinessTem import Cleanliness
+from PriceRangeTem import PriceRange
+from PriceRange_run import PriceRange
 
 # changed the even row colour to baby pink (thought it would match with our background colour(which is lightblue)
 EVEN_ROW_COLOUR = '#F7DAD9'
@@ -129,52 +131,9 @@ class Main(wx.Frame):
         secondWindow = Cleanliness(self)
         secondWindow.Show()
 
-    def OnPriceRange(self, event):
-        secondWindow = PriceRange(self)
-        secondWindow.Show()
 
 
-# Requirement 5- Price Range
-from PriceRangeTem import PriceRange as PriceRange1
 
-
-class Data(wx.grid.GridTableBase):
-    def __init__(self, data=None):
-        wx.grid.GridTableBase.__init__(self)
-        self.headerRows = 1
-        self.data = data
-
-    def GetNumberRows(self):
-        return len(self.data.index)
-
-    def GetNumberCols(self):
-        return len(self.data.columns)
-
-    def GetValue(self, row, col):
-        return self.data.iloc[row, col]
-
-    def SetValue(self, row, col, value):
-        self.data.iloc[row, col] = value
-
-    # For better visualisation
-    def GetColLabelValue(self, col):
-        return self.data.columns[col]
-
-    def GetAttr(self, row, col, prop):
-        attr = wx.grid.GridCellAttr()
-        if row % 2 == 1:
-            attr.SetBackgroundColour(EVEN_ROW_COLOUR)
-        return attr
-
-class DataFrame(Main):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.table = Data(df1)
-
-        self.m_grid2.SetTable(self.table, takeOwnership=True)
-        self.m_grid2.AutoSize()
-        self.Show(True)
-        self.Layout()
 
 if __name__ == "__main__":
     app = wx.App(False)
