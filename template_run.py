@@ -4,8 +4,8 @@ import pandas as pd
 
 from SuburbTem import Suburb
 from PriceDistribution_Run import Price #Linked
-from KeywordTem import Keyword
-from CleanlinessTem import Cleanliness
+from Keyword_Run import Keyword
+from Cleanliness_Run import Cleanliness
 from PriceRangeTem import PriceRange
 from PriceRange_run import PriceRange
 
@@ -130,10 +130,6 @@ class Main(wx.Frame):
     def OnCleanliness(self, event):
         secondWindow = Cleanliness(self)
         secondWindow.Show()
-
-
-
-
 
 if __name__ == "__main__":
     app = wx.App(False)

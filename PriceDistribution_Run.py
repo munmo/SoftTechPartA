@@ -101,9 +101,8 @@ class Price(wx.Frame):
         plt.ticklabel_format(style='plain', axis='y', useOffset=False)  # Disable scientific notation for y-axis
         plt.show()
 
-
-# Run the program
-app = wx.App(False)
-frame = Price(None)
-frame.Show(True)
-app.MainLoop()
+if __name__ == "__main__":
+    app = wx.App(False)
+    frame = Price(None)
+    frame.Show(True)
+    app.MainLoop()
