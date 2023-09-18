@@ -72,7 +72,7 @@ class Suburb ( wx.Frame ):
 		self.m_grid2.CreateGrid( 5, 5 )
 		self.m_grid2.EnableEditing( True )
 		self.m_grid2.EnableGridLines( True )
-		self.m_grid2.EnableDragGridSize( False )
+		self.m_grid2.EnableDragGridSize( True )
 		self.m_grid2.SetMargins( 0, 0 )
 
 		# Columns
@@ -96,7 +96,15 @@ class Suburb ( wx.Frame ):
 
 		self.Centre( wx.BOTH )
 
+		# Connect Events
+		self.m_button6.Bind( wx.EVT_BUTTON, self.OnSearch )
+
 	def __del__( self ):
 		pass
+
+
+	# Virtual event handlers, override them in your derived class
+	def OnSearch( self, event ):
+		event.Skip()
 
 

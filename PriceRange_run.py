@@ -6,7 +6,7 @@ import pandas as pd
 class PriceRange( wx.Frame ):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=u"Airbnb Data Software", pos=wx.DefaultPosition,
-                          size=wx.Size(874, 300), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
+                          size=wx.Size(874, 600), style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
         self.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_INACTIVEBORDER))
@@ -47,11 +47,11 @@ class PriceRange( wx.Frame ):
         self.m_grid2 = wx.grid.Grid(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
 
         # Grid
-        self.m_grid2.CreateGrid(5, 5)
+        self.m_grid2.CreateGrid(20, 3)
         self.m_grid2.EnableEditing(True)
         self.m_grid2.EnableGridLines(True)
         self.m_grid2.EnableDragGridSize(False)
-        self.m_grid2.SetMargins(0, 0)
+        self.m_grid2.SetMargins(200, 0)
 
         # Columns
         self.m_grid2.EnableDragColMove(False)

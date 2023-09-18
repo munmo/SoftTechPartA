@@ -3,11 +3,12 @@ import wx.grid
 import pandas as pd
 
 from SuburbTem import Suburb
-from PriceDistribution_Run import Price #Linked
+from PriceDistribution_Run import Price # Linked
 from KeywordTem import Keyword
 from CleanlinessTem import Cleanliness
 from PriceRangeTem import PriceRange
-from PriceRange_run import PriceRange
+from PriceRange_run import PriceRange # linked
+from Suburb_run import Suburb # Linked
 
 # changed the even row colour to baby pink (thought it would match with our background colour(which is lightblue)
 EVEN_ROW_COLOUR = '#F7DAD9'
