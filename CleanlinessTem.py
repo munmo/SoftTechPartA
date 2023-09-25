@@ -26,26 +26,32 @@ class Cleanliness ( wx.Frame ):
 		bSizer1 = wx.BoxSizer( wx.VERTICAL )
 
 		self.m_panel2 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		gSizer3 = wx.GridSizer( 1, 3, 0, 0 )
+		fgSizer11 = wx.FlexGridSizer( 1, 3, 0, 0 )
+		fgSizer11.SetFlexibleDirection( wx.BOTH )
+		fgSizer11.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
 		self.m_staticText4 = wx.StaticText( self.m_panel2, wx.ID_ANY, u"Type Cleanliness Keyword", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText4.Wrap( -1 )
 
-		gSizer3.Add( self.m_staticText4, 0, wx.ALL, 5 )
+		fgSizer11.Add( self.m_staticText4, 0, wx.ALL, 5 )
 
 		self.m_textCtrl2 = wx.TextCtrl( self.m_panel2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		gSizer3.Add( self.m_textCtrl2, 0, wx.ALL, 5 )
+		fgSizer11.Add( self.m_textCtrl2, 0, wx.ALL, 5 )
 
-		self.m_button6 = wx.Button( self.m_panel2, wx.ID_ANY, u"Search", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_button6 = wx.Button( self.m_panel2, wx.ID_ANY, u"MyButton", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_button6.SetBackgroundColour( wx.Colour( 255, 255, 174 ) )
 
-		gSizer3.Add( self.m_button6, 0, wx.ALL, 5 )
+		fgSizer11.Add( self.m_button6, 0, wx.ALL, 5 )
 
 
-		self.m_panel2.SetSizer( gSizer3 )
+		self.m_panel2.SetSizer( fgSizer11 )
 		self.m_panel2.Layout()
-		gSizer3.Fit( self.m_panel2 )
+		fgSizer11.Fit( self.m_panel2 )
 		bSizer1.Add( self.m_panel2, 1, wx.EXPAND |wx.ALL, 5 )
+
+		fgSizer12 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer12.SetFlexibleDirection( wx.BOTH )
+		fgSizer12.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
 		self.m_grid2 = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 
@@ -69,7 +75,10 @@ class Cleanliness ( wx.Frame ):
 
 		# Cell Defaults
 		self.m_grid2.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-		bSizer1.Add( self.m_grid2, 0, wx.ALL, 5 )
+		fgSizer12.Add( self.m_grid2, 0, wx.ALL, 5 )
+
+
+		bSizer1.Add( fgSizer12, 1, wx.EXPAND, 5 )
 
 
 		self.SetSizer( bSizer1 )
