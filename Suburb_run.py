@@ -117,14 +117,33 @@ class Suburb ( wx.Frame ):
         self.m_grid2.SetColLabelValue(2, 'Description')
         self.m_grid2.SetColLabelValue(3, 'Suburb')
 
+        self.status_message = " "
+
     def __del__(self):
         pass
+
+    def SetStatusMessage(self, message):
+        self.status_message = message
+
+    def GetStatusMessage(self):
+        if not self.status_message.strip():
+            return ''
+        return self.status_message.strip()
+
 
     # Virtual event handlers, override them in your derived class
     def OnSearch(self, event):
         select_suburb = self.m_comboBox1.GetValue()
         checkin_date = self.m_comboBox2.GetValue()
         checkout_date = self.m_comboBox3.GetValue()
+
+        if not select_suburb:
+            self.SetStatusMessage("Missing Suburb")
+        elif not checkin_date or not checkout_date:
+            self.SetStatusMessage("Missing Dates")
+        else:
+            self.SetStatusMessage("")
+
 
         # convert datetime
         checkin_date = pd.Timestamp(checkin_date)
