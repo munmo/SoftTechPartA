@@ -57,6 +57,10 @@ class Price(wx.Frame):
     def __del__(self):
         pass
 
+    def generate_plot_title(self, checkin_date, checkout_date):
+        """Generate and return the title for the plot based on the provided check-in and check-out dates."""
+        return f"Airbnb Sydney Price Distribution: {checkin_date.strftime('%Y-%m-%d')} to {checkout_date.strftime('%Y-%m-%d')}"
+
     def OnPlot(self, event):
         checkin_date = self.m_comboBox2.GetValue()
         checkout_date = self.m_comboBox3.GetValue()
