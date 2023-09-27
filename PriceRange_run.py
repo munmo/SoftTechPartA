@@ -83,6 +83,8 @@ class PriceRange(wx.Frame):
         # Connect Events
         self.m_button6.Bind(wx.EVT_BUTTON, self.OnSearch)
 
+
+
     def __del__(self):
         pass
 
@@ -92,6 +94,11 @@ class PriceRange(wx.Frame):
             # get min/max price
             min_price = float(self.m_textCtrl2.GetValue())
             max_price = float(self.m_textCtrl3.GetValue())
+
+            if not min_price or not max_price:
+                wx.LogError("Please Enter both Minimum and Maximum prices")
+                return
+
 
             df = pd.read_csv("listings_dec18.csv", usecols=['id', 'name', 'price'])
             df['price'] = df['price'].replace('[\$,]', '', regex=True).astype(float)
@@ -108,15 +115,18 @@ class PriceRange(wx.Frame):
             self.m_grid2.SetColLabelValue(1, 'name')
             self.m_grid2.SetColLabelValue(2, 'price')
 
-            # Append rows with data
+         # Append rows with data
             for row, (_, data) in enumerate(filtered_df.iterrows()):
                 self.m_grid2.AppendRows(1)
                 for col, value in enumerate(data):
                     self.m_grid2.SetCellValue(row, col, str(value))
 
-        except Exception as e:
-            wx.LogError(f"Error: {e}")
-            return
+
+        except ValueError:
+            wx.LogError(f"Please Enter both Minimum and Maximum prices")
+
+
+
 
 if __name__ == "__main__":
     app = wx.App(False)
