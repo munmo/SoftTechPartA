@@ -25,7 +25,7 @@ class Cleanliness (wx.Frame):
 
 		m_comboBox1Choices = ['Aseptic', 'Crisp', 'Disinfected', 'Elegant', 'Fresh', 'Gleaming', 'Hygienic',
 							  'Immaculate', 'Neat', 'Pristine', 'Sanitary', 'Shining', 'Spotless', 'Sterile',
-							  'Tidy', 'Ultraclean', 'Unblemished', 'Well-kept']
+							  'Tidy', 'Unblemished', 'Well-kept']
 
 		self.m_comboBox1 = wx.ComboBox(self.m_panel2, wx.ID_ANY, u"Select", wx.DefaultPosition, wx.DefaultSize, m_comboBox1Choices, 0)
 		fgSizer11.Add(self.m_comboBox1, 0, wx.ALL, 5)
@@ -92,6 +92,10 @@ class Cleanliness (wx.Frame):
 		try:
 			cleanliness_keyword = self.m_comboBox1.GetValue()
 
+			if not cleanliness_keyword:
+				wx.MessageBox("Please select a cleanliness keyword.", "Error", wx.OK | wx.ICON_ERROR)
+				return
+
 			df_reviews = pd.read_csv("reviews_dec18.csv", usecols=['listing_id', 'comments'])
 			df_filtered_reviews = df_reviews[df_reviews['comments'].str.contains(cleanliness_keyword, case=False, na=False)]
 
@@ -99,6 +103,8 @@ class Cleanliness (wx.Frame):
 			self.result_count_label.SetLabel(f"Number of Results: {num_rows}")
 
 			self.m_grid2.ClearGrid()
+			self.m_grid2.DeleteCols(0, self.m_grid2.GetNumberCols())
+			self.m_grid2.DeleteRows(0, self.m_grid2.GetNumberRows())
 			self.m_grid2.AppendRows(num_rows)
 
 			self.m_grid2.AppendCols(len(df_filtered_reviews.columns))
@@ -114,6 +120,10 @@ class Cleanliness (wx.Frame):
 
 		except Exception as e:
 			wx.LogError(f"Error: {e}")
+			return
+
+		if df_filtered_reviews.empty:
+			wx.MessageBox(f"No data available for the selected date range with keyword '{keyword}'.", "Info", wx.OK | wx.ICON_INFORMATION)
 			return
 
 if __name__ == "__main__":
