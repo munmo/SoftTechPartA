@@ -1,4 +1,5 @@
 import wx
+import wx.xrc
 import wx.grid
 import pandas as pd
 
@@ -133,5 +134,3 @@ if __name__ == "__main__":
     frame = PriceRange(None)
     frame.Show(True)
     app.MainLoop()
-
-
