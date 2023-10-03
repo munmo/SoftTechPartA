@@ -49,3 +49,21 @@ def test_dates_provided(mocked_show, price_frame):
     except Exception as e:
         pytest.fail(f"Unexpected exception raised: {e}")
 
+
+# Mock both plt.title and plt.show to capture its arguments and prevent the actual plot rendering respectively
+@mock.patch.object(plt, 'show')
+@mock.patch.object(plt, 'title')
+def test_plot_title_correctness(mocked_title, mocked_show, price_frame):
+    checkin_date = '2019-01-01'
+    checkout_date = '2019-02-02'
+
+    # Set the check-in and check-out dates
+    price_frame.m_comboBox2.SetValue(checkin_date)
+    price_frame.m_comboBox3.SetValue(checkout_date)
+
+    # Call the plotting function
+    price_frame.OnPlot(None)
+
+    # Verify that plt.title() was called with the correct argument
+    expected_title = f"Airbnb Sydney Price Distribution: {checkin_date} to {checkout_date}"
+    mocked_title.assert_called_with(expected_title)
