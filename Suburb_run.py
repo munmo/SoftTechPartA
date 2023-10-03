@@ -126,7 +126,7 @@ class Suburb ( wx.Frame ):
         self.m_grid2.SetColLabelValue(2, 'Description')
         self.m_grid2.SetColLabelValue(3, 'Suburb')
 
-        self.status_message = " "
+        self.status_message = ""
 
     def __del__(self):
         pass
@@ -136,7 +136,7 @@ class Suburb ( wx.Frame ):
 
     def GetStatusMessage(self):
         if not self.status_message.strip():
-            return ''
+            return None
         return self.status_message.strip()
 
     def ScreenSize(self, event):
