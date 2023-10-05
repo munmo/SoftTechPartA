@@ -17,8 +17,10 @@ def test_calendar_csv():
     unique_dates = df_calendar['date'].unique().tolist()
     unique_dates.sort()
 
-    # Initialize the application and frame.
-    app = wx.App(False)
+    # Check if wx.App exists. If not, create it.
+    if not wx.GetApp():
+        app = wx.App(False)
+
     frame = Price(None)
 
     # Check if the combo boxes have items.
@@ -37,9 +39,15 @@ def wx_app():
 def price_frame(wx_app):
     return Price(None)
 
-# Test if check-in date and check-out date are both selected
 @mock.patch.object(plt, 'show')
-def test_dates_provided(mocked_show, price_frame):
+@mock.patch.object(plt, 'figure')
+@mock.patch.object(plt, 'hist')
+@mock.patch.object(plt, 'xlabel')
+@mock.patch.object(plt, 'ylabel')
+@mock.patch.object(plt, 'xticks')
+@mock.patch.object(plt, 'grid')
+@mock.patch.object(plt, 'title')
+def test_dates_provided(mocked_title, mocked_grid, mocked_xticks, mocked_ylabel, mocked_xlabel, mocked_hist, mocked_figure, mocked_show, price_frame):
     # Mocking the scenario where both "Check-in Date" and "Check-out Date" are selected
     price_frame.m_comboBox2.SetValue('2019-01-01')  # A value for Check-in Date
     price_frame.m_comboBox3.SetValue('2019-02-02')  # A value for Check-out Date
@@ -49,3 +57,29 @@ def test_dates_provided(mocked_show, price_frame):
     except Exception as e:
         pytest.fail(f"Unexpected exception raised: {e}")
 
+@mock.patch.object(plt, 'show')
+@mock.patch.object(plt, 'figure')
+@mock.patch.object(plt, 'hist')
+@mock.patch.object(plt, 'xlabel')
+@mock.patch.object(plt, 'ylabel')
+@mock.patch.object(plt, 'xticks')
+@mock.patch.object(plt, 'grid')
+@mock.patch.object(plt, 'title')
+def test_plot_title_correctness(mocked_title, mocked_grid, mocked_xticks, mocked_ylabel, mocked_xlabel, mocked_hist, mocked_figure, mocked_show, price_frame):
+    checkin_date = '2019-01-01'
+    checkout_date = '2019-02-02'
+
+    # Set the check-in and check-out dates
+    price_frame.m_comboBox2.SetValue(checkin_date)
+    price_frame.m_comboBox3.SetValue(checkout_date)
+
+    # Call the plotting function
+    price_frame.OnPlot(None)
+
+    # Verify that plt.title() was called with the correct argument
+    expected_title = f"Airbnb Sydney Price Distribution: {checkin_date} to {checkout_date}"
+<<<<<<< HEAD
+    mocked_title.assert_called_with(expected_title)
+=======
+    mocked_title.assert_called_with(expected_title)
+>>>>>>> b79a668fba8399a8861f44e82f647f6b654ec0ff
