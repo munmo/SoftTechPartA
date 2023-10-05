@@ -27,7 +27,7 @@ class Cleanliness (wx.Frame):
 							  'Immaculate', 'Neat', 'Pristine', 'Sanitary', 'Shining', 'Spotless', 'Sterile',
 							  'Tidy', 'Unblemished', 'Well-kept']
 
-		self.m_comboBox1 = wx.ComboBox(self.m_panel2, wx.ID_ANY, u"Select", wx.DefaultPosition, wx.DefaultSize, m_comboBox1Choices, 0)
+		self.m_comboBox1 = wx.ComboBox(self.m_panel2, wx.ID_ANY, u"", wx.DefaultPosition, wx.DefaultSize, m_comboBox1Choices, 0)
 		fgSizer11.Add(self.m_comboBox1, 0, wx.ALL, 5)
 
 		self.m_button6 = wx.Button(self.m_panel2, wx.ID_ANY, u"Search", wx.DefaultPosition, wx.DefaultSize, 0)
