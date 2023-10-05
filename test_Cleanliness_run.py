@@ -70,4 +70,8 @@ def test_cleanliness_keyword_filtering(cleanliness_frame):
             assert keyword_to_select.lower() in comment.lower(), f"Keyword '{keyword_to_select}' not found in comment: '{comment}'"
 
     except Exception as e:
+<<<<<<< HEAD
         pytest.fail(f"Unexpected exception raised: {e}")
+=======
+        pytest.fail(f"Unexpected exception raised: {e}")
+>>>>>>> 3d7db66a77b759c88eeeacde5d2e6bfcb3d20e78

@@ -78,8 +78,4 @@ def test_plot_title_correctness(mocked_title, mocked_grid, mocked_xticks, mocked
 
     # Verify that plt.title() was called with the correct argument
     expected_title = f"Airbnb Sydney Price Distribution: {checkin_date} to {checkout_date}"
-<<<<<<< HEAD
-    mocked_title.assert_called_with(expected_title)
-=======
-    mocked_title.assert_called_with(expected_title)
->>>>>>> b79a668fba8399a8861f44e82f647f6b654ec0ff
+
