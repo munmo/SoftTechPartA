@@ -28,6 +28,16 @@ def test_calendar_csv():
     assert set(frame.m_comboBox2.GetItems()) == set(unique_dates), "m_comboBox2 items don't match CSV dates."
     assert set(frame.m_comboBox3.GetItems()) == set(unique_dates), "m_comboBox3 items don't match CSV dates."
 
+def test_csv_file_extension_valid():
+    # Check if the file extension is valid
+    _, file_extension = os.path.splitext(calendar_csv_file)
+    assert len(file_extension) in (3, 4) and file_extension[1:].isalpha(), f"Invalid file extension: '{file_extension}'"
+
+def test_csv_file_name_startswith_alphabetical():
+    file_name = os.path.basename(calendar_csv_file)
+    assert file_name[0].isalpha(), f"CSV file name '{file_name}' does not start with an alphabetical character."
+
+
 @pytest.fixture(scope="module")
 def wx_app():
     return wx.App(False)
@@ -50,5 +60,5 @@ def test_dates_provided(mocked_OnSearch, mocked_MessageBox, keyword_frame):
         pytest.fail(f"Unexpected exception raised: {e}")
 
     # Assertions for expected behaviors based on your implementation
-    mocked_OnSearch.assert_called_once()  # Check that OnSearch was called once
+    mocked_OnSearch.assert_called_once()   # Check that OnSearch was called once
     mocked_MessageBox.assert_not_called()  # Ensure that wx.MessageBox was not called
